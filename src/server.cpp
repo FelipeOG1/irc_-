@@ -1,16 +1,15 @@
-#include <iostream>
+#include "../include/server.h"
 #include <cstring>
 #include <unistd.h>
 #include <arpa/inet.h>
+#include <string>
+#include <stdexcept>
+namespace irc {
 
-class Server {
-private:
-  const int _port;
-  int _sockfd;
-public:
-  Server(const int port) : _port(port) {
+  Server::Server(int port) : _port(port) {
     
     _sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    
     if (_sockfd < 0) {
       throw std::runtime_error("Couldt create socket for server");
     }
@@ -27,21 +26,9 @@ public:
       throw std::runtime_error("Failed to bind socket");
       
     }
-
-   
   };
 
-  void run() {
-    if (listen(_sockfd, 5) < 0) {
-      throw std::runtime_error("Failed to run server");
-
-    }
-  }
-};
-
-int main() {
-  Server new_server(8000);
-  new_server.run();
-  
-  return 0;
 }
+ 
+
+

@@ -1,3 +1,4 @@
-/home/felipe/irc_project/build/CMakeFiles/main.dir
+/home/felipe/irc_project/build/CMakeFiles/server.dir
+/home/felipe/irc_project/build/CMakeFiles/client.dir
 /home/felipe/irc_project/build/CMakeFiles/edit_cache.dir
 /home/felipe/irc_project/build/CMakeFiles/rebuild_cache.dir
