@@ -45,12 +45,10 @@ namespace irc {
       
       char ip_str[INET_ADDRSTRLEN];
       inet_ntop(AF_INET, &(client_addr.sin_addr), ip_str, addrlen);
-      std::cout << "client connected with ip: " << ip_str << std::endl;
-      
+      std::cout << "client connected with ip: " << ip_str << "and socket: " << client_fd << std::endl;
+  
     }
   }
-  
-  
 
 }
  
