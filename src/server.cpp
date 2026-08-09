@@ -47,6 +47,7 @@ namespace irc {
       inet_ntop(AF_INET, &(client_addr.sin_addr), ip_str, addrlen);
       std::cout << "client connected with ip: " << ip_str << "and socket: " << client_fd << std::endl;
       char buffer[1000];
+      
       for (;;) {
         std::memset(buffer, 0, sizeof(buffer));
         ssize_t bytes_read = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
