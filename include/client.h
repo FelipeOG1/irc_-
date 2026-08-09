@@ -1,0 +1,10 @@
+
+namespace irc {
+  class Client {
+    
+    
+    
+  };
+}
+ 
+

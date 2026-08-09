@@ -1,6 +1,7 @@
 #pragma once
 
 namespace irc {
+  constexpr int BACKLOG_SIZE = 5;
   
   class Server {
   private:
@@ -8,7 +9,7 @@ namespace irc {
     int _sockfd{-1};
   public:
     explicit Server(const int port);
-    void star();
+    void run();
   }; 
 }
 

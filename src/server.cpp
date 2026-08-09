@@ -4,6 +4,7 @@
 #include <arpa/inet.h>
 #include <string>
 #include <stdexcept>
+#include <iostream>
 namespace irc {
 
   Server::Server(int port) : _port(port) {
@@ -26,7 +27,27 @@ namespace irc {
       throw std::runtime_error("Failed to bind socket");
       
     }
+    if (listen(_sockfd, BACKLOG_SIZE) < 0) throw std::runtime_error("Failed to listen");
   };
+  
+  void Server::run() {
+    for (;;) {
+      
+      sockaddr_in client_addr{}; 
+      socklen_t addrlen = sizeof(client_addr);
+      
+      int client_fd = accept(_sockfd, (sockaddr*)(&client_addr), &addrlen);
+      
+      if (client_fd < 0) std::cerr << "Failed to accept client"; continue;
+      
+      
+      
+      
+      
+    }
+  }
+  
+  
 
 }
  

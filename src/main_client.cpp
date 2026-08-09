@@ -1,6 +1,5 @@
 #include "../include/client.h"
 
-namespace irc {
-  
- 
+int main() {
+  return 0;
 }
