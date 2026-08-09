@@ -38,11 +38,14 @@ namespace irc {
       
       int client_fd = accept(_sockfd, (sockaddr*)(&client_addr), &addrlen);
       
-      if (client_fd < 0) std::cerr << "Failed to accept client"; continue;
+      if (client_fd < 0) {
+        std::cerr << "Failed to accept client\n";
+        continue;  
+      }
       
-      
-      
-      
+      char ip_str[INET_ADDRSTRLEN];
+      inet_ntop(AF_INET, &(client_addr.sin_addr), ip_str, addrlen);
+      std::cout << "client connected with ip: " << ip_str << std::endl;
       
     }
   }
