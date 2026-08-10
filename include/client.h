@@ -12,8 +12,9 @@ namespace irc {
   public:
     Client(std::string nickname);   
     void connect_server(const int port, const char* server_ip);
-    void send_nickname();
+    
     void disconnect_server();
+    void send_nickname();
     
   };
 

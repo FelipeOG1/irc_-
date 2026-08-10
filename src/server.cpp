@@ -1,4 +1,5 @@
 #include "../include/server.h"
+#include "../include/parser.h"
 #include <cstring>
 #include <unistd.h>
 #include <arpa/inet.h>
@@ -45,18 +46,24 @@ namespace irc {
       
       char ip_str[INET_ADDRSTRLEN];
       inet_ntop(AF_INET, &(client_addr.sin_addr), ip_str, addrlen);
-      std::cout << "client connected with ip: " << ip_str << "and socket: " << client_fd << std::endl;
-      char buffer[1000];
       
+      std::cout << "client connected with ip: " << ip_str << "and socket: " << client_fd << std::endl;
+      
+      std::string client_message;
+      client_message.resize(1024);
       for (;;) {
-        std::memset(buffer, 0, sizeof(buffer));
-        ssize_t bytes_read = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
+        
+        ssize_t bytes_read = recv(
+            client_fd, 
+            client_message.data(), 
+            client_message.size(),
+            0);
         
         if (bytes_read <= 0) {
           std::cout << "client close connection" << std::endl;
-          break;
-        }        
-        send(client_fd, buffer, bytes_read, 0);
+          
+        }
+        
       }   
 
       close(client_fd);
