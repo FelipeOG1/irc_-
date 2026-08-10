@@ -55,7 +55,6 @@ namespace irc {
         if (bytes_read <= 0) std::cout << "client close connection" << std::endl;
         
         send(client_fd, buffer, bytes_read, 0);
-        
       }   
 
       close(client_fd);
