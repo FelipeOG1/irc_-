@@ -1,8 +1,11 @@
 #pragma once
-
+#include <string>
 namespace irc {
   constexpr int BACKLOG_SIZE = 5;
-  
+  struct Channel {
+    std::string name;
+    Channel(std::string name) : name(name) {}
+  };
   class Server {
   private:
     const int _port;
