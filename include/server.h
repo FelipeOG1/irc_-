@@ -7,8 +7,12 @@ namespace irc {
   private:
     const int _port;
     int _sockfd{-1};
+    
   public:
     explicit Server(const int port);
+    void handle_nick_command();
+      
+    
     void run();
   }; 
 }

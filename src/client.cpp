@@ -31,7 +31,8 @@ namespace irc {
     
   
   void Client::send_nickname() {
-    std::cout << parser::parse_nickname(_nickname);
+    std::string message = parser::parse_nickname(_nickname);
+    send(_sockfd, message.data(), message.length(), 0); 
   }
 }
 

@@ -30,20 +30,23 @@ namespace irc {
     }
     if (listen(_sockfd, BACKLOG_SIZE) < 0) throw std::runtime_error("Failed to listen");
   };
+
+  void Server::handle_nick_command() {
+    std::cout << "IS NICK" << std::endl;
+  }
+  
   
   void Server::run() {
     for (;;) {
       
       sockaddr_in client_addr{}; 
       socklen_t addrlen = sizeof(client_addr);
-      
       int client_fd = accept(_sockfd, (sockaddr*)(&client_addr), &addrlen);
       
       if (client_fd < 0) {
         std::cerr << "Failed to accept client\n";
         continue;  
       }
-      
       char ip_str[INET_ADDRSTRLEN];
       inet_ntop(AF_INET, &(client_addr.sin_addr), ip_str, addrlen);
       
@@ -52,7 +55,6 @@ namespace irc {
       std::string client_message;
       client_message.resize(1024);
       for (;;) {
-        
         ssize_t bytes_read = recv(
             client_fd, 
             client_message.data(), 
@@ -60,9 +62,21 @@ namespace irc {
             0);
         
         if (bytes_read <= 0) {
-          std::cout << "client close connection" << std::endl;
+          std::cout << "client close connection" << std::endl;  
+        }
+        
+        std::string_view view_message(client_message);
+        
+        Command command = parser::parse_command(view_message);
+        switch(command) {
+          case Command::NICK:
+            handle_nick_command();
+            
+          case Command::UNKNOWN:
+            std::cout << "NOOO UNKOOOWN";
           
         }
+        break;
         
       }   
 
