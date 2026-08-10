@@ -12,6 +12,7 @@ target_sources(server
   PRIVATE
   src/main_server.cpp
   src/server.cpp
+  src/parser.cpp
 )
 target_include_directories(server
   PRIVATE
@@ -24,6 +25,7 @@ target_sources(client
   PRIVATE
   src/main_client.cpp
   src/client.cpp
+  src/parser.cpp
 )
 
 target_include_directories(client
