@@ -1,4 +1,5 @@
 #include "../include/client.h"
+#include "../include/parser.h"
 #include <arpa/inet.h>
 #include <stdexcept>
 #include <unistd.h>
@@ -26,13 +27,19 @@ namespace irc {
       throw std::runtime_error("Faile to connect");
     }
   }
-
+  void Client::disconnect_server() { close(_sockfd); }
+    
+  
+  void Client::send_nickname() {
+    std::cout << parser::parse_nickname(_nickname);
+  }
 }
 
 namespace ui {
     void show_welcome_message() {
       std::cout << "WELCOME TO IRC SERVER" << std::endl;
-      std::cout << "TYPE YOUR NICKNAME" << std::endl;   
-    } 
+      std::cout << "TYPE YOUR NICKNAME" << std::endl;
+    }
+    
   }
 

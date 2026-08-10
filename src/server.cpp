@@ -52,8 +52,10 @@ namespace irc {
         std::memset(buffer, 0, sizeof(buffer));
         ssize_t bytes_read = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
         
-        if (bytes_read <= 0) std::cout << "client close connection" << std::endl;
-        
+        if (bytes_read <= 0) {
+          std::cout << "client close connection" << std::endl;
+          break;
+        }        
         send(client_fd, buffer, bytes_read, 0);
       }   
 

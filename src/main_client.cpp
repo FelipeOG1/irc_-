@@ -13,11 +13,9 @@ int main() {
       
     irc::Client c1(nickname);
     c1.connect_server(8000, "127.0.0.1");
-    for (;;) {
-      
-    }
+    c1.send_nickname();
+    c1.disconnect_server();
     
-  
   return 0;
 }
 

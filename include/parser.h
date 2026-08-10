@@ -1,5 +1,6 @@
 #pragma once
 #include <string_view>
+#include <string>
 namespace irc {
   
   namespace parser {
@@ -8,7 +9,10 @@ namespace irc {
       USER,
       UNKNOWN
     };
-    constexpr Command parse_command(std::string_view str);
+    constexpr Command get_command(std::string_view str);
+    std::string parse_nickname(const std::string& nick);
+    
+    
   } 
 }
 
