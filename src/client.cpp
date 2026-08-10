@@ -4,7 +4,11 @@
 #include <unistd.h>
 #include <iostream>
 namespace irc {
+  
+  bool is_valid_nickname(std::string nick) { return nick.length() <= 9;}
+
   Client::Client(std::string nick) : _nickname(nick) {
+    
     _sockfd = socket(AF_INET, SOCK_STREAM, 0);
     
   }
@@ -21,17 +25,14 @@ namespace irc {
       close(_sockfd);
       throw std::runtime_error("Faile to connect");
     }
-    
-    for (;;) {
-      std::string user_input;
-      std::getline(std::cin, user_input);
-      int res = send(_sockfd, user_input.c_str(), user_input.length(), 0);
-           
-    }
-
-    
-    
-  
   }
 
 }
+
+namespace ui {
+    void show_welcome_message() {
+      std::cout << "WELCOME TO IRC SERVER" << std::endl;
+      std::cout << "TYPE YOUR NICKNAME" << std::endl;   
+    } 
+  }
+
