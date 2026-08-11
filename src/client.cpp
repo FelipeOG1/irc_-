@@ -4,9 +4,13 @@
 #include <stdexcept>
 #include <unistd.h>
 #include <iostream>
+
 namespace irc {
   
-  bool is_valid_nickname(std::string nick) { return nick.length() <= 9;}
+  bool is_valid_nickname(std::string nick) {
+    return (nick.length() <= 9 && 
+            nick.find(" ") == std::string::npos);
+  }
 
   Client::Client(std::string nick) : _nickname(nick) {
     
@@ -27,11 +31,15 @@ namespace irc {
       throw std::runtime_error("Faile to connect");
     }
   }
-  void Client::disconnect_server() { close(_sockfd); }
-    
+  void Client::disconnect_server() {
+    constexpr std::string_view quit = "QUIT";  
+    send(_sockfd, quit.data(), quit.size(), 0);
+    close(_sockfd); 
+  }
   
   void Client::send_nickname() {
-    std::string message = parser::parse_nickname(_nickname);
+    std::string message = "NICK " + _nickname;
+    std::cout << "send " << message;
     send(_sockfd, message.data(), message.length(), 0); 
   }
 }

@@ -6,9 +6,9 @@ int main() {
     std::getline(std::cin, nickname);
     
     while (!irc::is_valid_nickname(nickname)) {
+      std::cout << "Invalid name type again: " << std::endl;
       nickname.clear();
       std::getline(std::cin, nickname);
-      std::cout << "Invalid name type again: ";
     }
       
     irc::Client c1(nickname);

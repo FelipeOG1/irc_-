@@ -1,4 +1,5 @@
 #include "../include/server.h"
+#include "../include/client.h"
 #include "../include/parser.h"
 #include <cstring>
 #include <unistd.h>
@@ -8,7 +9,7 @@
 #include <iostream>
 namespace irc {
   //TODO 
-
+  Server::~Server() = default;
   Server::Server(int port) : _port(port) {
     
     _sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -32,8 +33,12 @@ namespace irc {
     if (listen(_sockfd, BACKLOG_SIZE) < 0) throw std::runtime_error("Failed to listen");
   };
 
-  void Server::handle_nick_command() {
-    std::cout << "IS NICK" << std::endl;
+  void Server::handle_nick_command(std::string_view message) {
+  
+  }
+  void Server::handle_quit_command(int client_fd) {
+    close(client_fd);
+    std::cout << "client disconnected" << std::endl;
   }
   
   
@@ -62,17 +67,16 @@ namespace irc {
             client_message.size(),
             0);
         
-        if (bytes_read <= 0) {
-          std::cout << "client close connection" << std::endl;  
-        }
-        
+      
         std::string_view view_message(client_message);
+        std::cout << "receive " << view_message << std::endl;
         
         Command command = parser::parse_command(view_message);
         switch(command) {
           case Command::NICK:
-            handle_nick_command();
-            
+            handle_nick_command(view_message);
+          case Command::QUIT:
+            handle_quit_command(client_fd);
           case Command::UNKNOWN:
             std::cout << "NOOO UNKOOOWN";
           

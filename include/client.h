@@ -3,8 +3,7 @@ namespace irc {
   bool is_valid_nickname(std::string);
   class Client {
     
-  private:
-    
+  private:   
     int _sockfd;
     std::string _nickname;
     
